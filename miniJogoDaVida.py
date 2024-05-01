@@ -10,19 +10,18 @@ def dado(posJogador):
         posJogador=21
     return(posJogador)
 
-#uma grande função contendo todas as 'casas' do tabuleiro,verifica a posição do jogador para executar as outras funções
+#uma grande função contendo todas as 'casas' do tabuleiro,verifica a posição e status do jogador para executar as outras funções
 def tabuleiro(posJogador,jogadorVivo,Nomejogador,paralizado):
     #casas com roleta
     if posJogador==1 or posJogador==3 or posJogador==10 or posJogador==17:
         print('você caiu na roleta! gire para ver sua sorte!')
         (posJogador,paralizado)=roleta(posJogador,Nomejogador,paralizado)
-        return(posJogador,paralizado)
-    
+
     #casas com caveira
     if posJogador==2 or posJogador==8 or posJogador==18:
-        jogadorVivo==morte(jogadorVivo,Nomejogador)
-        return(jogadorVivo)
+        jogadorVivo=morte(jogadorVivo,Nomejogador)
 
+    return (posJogador,jogadorVivo,Nomejogador,paralizado)
 
 
 
@@ -50,16 +49,18 @@ def roleta(posJogador,Nomejogador,paralizado):
     else:
         print(Nomejogador,'tirou',roll,'no dado, nada acontece!')
         paralizado=False
-    return(posJogador,paralizado)
+    print('')
+    return posJogador,paralizado
 
 #morte
 def morte(jogadorVivo,Nomejogador):
     print(Nomejogador,'Morreu!')
     #chamar função das estatisticas
     jogadorVivo=False
+    print('')
     return jogadorVivo
 
-
+#desafio matemático
 
 
 
@@ -125,19 +126,21 @@ while lobby !=1 and lobby !=2:
 while fim!=True: #or (jogador1Vivo!=True and jogador2Vivo!=True):
     #movimento dos jogares e simulação do tabuleiro(contém validação de vida e paralisado)
 
-    if jogador1Vivo==True and paralizado1==False:
+    #jogador1
+    if jogador1Vivo==True and paralizado1!=True:
         posJogador1=dado(posJogador1)
-        print('o jogador 1 caiu na casa',posJogador1)
-        tabuleiro(posJogador1,jogador1Vivo,nomeJ1,paralizado1)
+        print(nomeJ1,'caiu na casa',posJogador1)
+        posJogador1,jogador1Vivo,nomeJ1,paralizado1=tabuleiro(posJogador1,jogador1Vivo,nomeJ1,paralizado1)
     elif jogador1Vivo==True and paralizado1==True:
         print(nomeJ1,'perdeu seu turno')     
     else:
         print(nomeJ1,'está morto')
 
+    #jogador2 (se tiver)
     if dupla==True and jogador2Vivo==True and paralizado2==False:
         posJogador2=dado(posJogador2)
-        print('o jogador 2 caiu na casa',posJogador2)
-        tabuleiro(posJogador2,jogador2Vivo,nomeJ2,paralizado2)
+        print(nomeJ2,'caiu na casa',posJogador2)
+        posJogador2,jogador2Vivo,nomeJ2,paralizado2 = tabuleiro(posJogador2,jogador2Vivo,nomeJ2,paralizado2)
     elif dupla==True and jogador2Vivo==True and paralizado2==True:
         print(nomeJ2,'perdeu seu turno')     
     elif dupla==True and jogador2Vivo==False:

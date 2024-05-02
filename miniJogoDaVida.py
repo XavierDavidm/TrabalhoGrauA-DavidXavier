@@ -21,12 +21,21 @@ def tabuleiro(posJogador,jogadorVivo,Nomejogador,paralizado):
     if posJogador==2 or posJogador==8 or posJogador==18:
         jogadorVivo=morte(jogadorVivo,Nomejogador)
 
+    #casas do desafio matemático
+    if posJogador==4 or posJogador==11 or posJogador==19:
+        desafioMatematico()
+
+    #casa da faculdade
+    if posJogador==5:
+        jogadorFormado=formatura(Nomejogador,jogadorFormado)
+
+
+
+
+
+
+
     return (posJogador,jogadorVivo,Nomejogador,paralizado)
-
-
-
-
-
 
 #Regras das casas
 
@@ -104,7 +113,7 @@ def div(n,m):
         num += 1
 
 #desafio matemático
-def desafioMatematioc():
+def desafioMatematico():
     sort=random.randint(1,6)
     if sort==1:
         Primos(100)
@@ -126,8 +135,27 @@ def desafioMatematioc():
         div(2,5)
 
 #formatura
-
-
+def formatura(Nomejogador,jogadorFormado):
+    roll=random.randint(1,6)
+    if roll==1:
+        print(Nomejogador,'se formou em Administração')
+        jogadorFormado='administracao'
+    elif roll==2:
+        print(Nomejogador,'se formou em Educação fisica')
+        jogadorFormado='educacao fisica'
+    elif roll==3:
+        print(Nomejogador,'se formou em história')
+        jogadorFormado='historia'
+    elif roll==4:
+        print(Nomejogador,'se formou em Engenharia')
+        jogadorFormado='engenharia'
+    elif roll==5:
+        print(Nomejogador,'se formou em Análise e desenvolvimento de sistemas')
+        jogadorFormado='analise e desenvolvimento de sistemas'
+    elif roll==6:
+        print(Nomejogador,'se formou em médicina')
+        jogadorFormado='medicina'
+    return(jogadorFormado)
 #filho
 
 

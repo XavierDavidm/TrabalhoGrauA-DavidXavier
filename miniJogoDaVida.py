@@ -59,10 +59,99 @@ def morte(jogadorVivo,Nomejogador):
     jogadorVivo=False
     print('')
     return jogadorVivo
+#funções matematicas
+def Primos(n):
+    print("Números primos de 1 a 100:", end=" ")
+    for num in range(1,n+1):
+        if num > 1:
+            primo = True
+            for i in range(2, int(num/2) + 1):
+                if (num % i) == 0:
+                    primo = False                   
+            if primo:
+                print(num, end=" ")
+
+def somatorio(ini,fim):
+    soma = 0
+    for i in range(ini,fim):
+        soma += i
+    print('a soma de todos os números do intervalo de ',ini,'até',fim,'é',soma)
+
+def fibo(n):
+    a, b = 0, 1
+    for _ in range(10):
+        print(a,end=" ")
+        a, b = b, a + b
+
+def circulo(r):
+    area=3.14*r**2
+    print('é',area)
+
+def factorial(n):
+    if n == 0:
+        fact= 1
+    else:
+        fact= n * factorial(n-1)
+    print(fact)
+
+def div(n,m):
+    count = 0
+    num = 1
+    while count < 5:
+        if num % n == 0 and num % m == 0:
+            print(num,end=" ")
+            count += 1
+        num += 1
 
 #desafio matemático
+def desafioMatematioc():
+    sort=random.randint(1,6)
+    if sort==1:
+        Primos(100)
+        print('todos os números primos de 1 a 100')
+    elif sort==2:
+        somatorio(1,10)
+        print('soma de todos os números 1 a 10')
+    elif sort==3:
+        fibo(10)
+        print('série de fibonacci os 10 primeiro números')
+    elif sort==4:
+        print('area circulo com raio de 2,5')
+        circulo(2.5)
+    elif sort==5:
+        print('factorial de 5 é:')
+        factorial(5)
+    elif sort==6:
+        print('os primeiro 5 números divisiveis por 2 e 5 são')
+        div(2,5)
+
+#formatura
 
 
+#filho
+
+
+#casamento
+
+
+
+#famoso
+
+
+
+#divórcio
+
+
+
+#loteria
+
+
+
+#novo amor(casar2 só que não pode ter divorciado nem casado )
+
+
+
+#maquina do tempo
 
 
 
@@ -135,6 +224,7 @@ while fim!=True: #or (jogador1Vivo!=True and jogador2Vivo!=True):
         print(nomeJ1,'perdeu seu turno')     
     else:
         print(nomeJ1,'está morto')
+    print('')
 
     #jogador2 (se tiver)
     if dupla==True and jogador2Vivo==True and paralizado2==False:
@@ -145,6 +235,7 @@ while fim!=True: #or (jogador1Vivo!=True and jogador2Vivo!=True):
         print(nomeJ2,'perdeu seu turno')     
     elif dupla==True and jogador2Vivo==False:
         print(nomeJ2,'está morto')
+    print('')
 
     input('aperte qualquer tecla para passar de turno')
 #para melhor visualização dos turnos setá sempre nescessario apertar qualquer tecla para continuar.

@@ -11,7 +11,7 @@ def dado(posJogador):
     return(posJogador)
 
 #uma grande função contendo todas as 'casas' do tabuleiro,verifica a posição e status do jogador para executar as outras funções
-def tabuleiro(posJogador,jogadorVivo,Nomejogador,paralizado):
+def tabuleiro(posJogador,jogadorVivo,Nomejogador,paralizado,jogadorFormado,filhosJogador,jogadorCasado,jogadorFamoso):
     #casas com roleta
     if posJogador==1 or posJogador==3 or posJogador==10 or posJogador==17:
         print('você caiu na roleta! gire para ver sua sorte!')
@@ -29,13 +29,21 @@ def tabuleiro(posJogador,jogadorVivo,Nomejogador,paralizado):
     if posJogador==5:
         jogadorFormado=formatura(Nomejogador,jogadorFormado)
 
+    #casas de filho
+    if posJogador==6 or posJogador==9 or posJogador==13:
+        filhosJogador=filho(Nomejogador,filhosJogador)
+
+    #casas do casamento
+    if posJogador==7:
+        jogadorCasado=casamento(Nomejogador)
+
+    #casa da fama
+    if posJogador==15:
+        jogadorFamoso=famoso(Nomejogador)
 
 
 
-
-
-
-    return (posJogador,jogadorVivo,Nomejogador,paralizado)
+    return (posJogador,jogadorVivo,Nomejogador,paralizado,jogadorFormado,filhosJogador,jogadorCasado,jogadorFamoso)
 
 #Regras das casas
 
@@ -156,16 +164,28 @@ def formatura(Nomejogador,jogadorFormado):
         print(Nomejogador,'se formou em médicina')
         jogadorFormado='medicina'
     return(jogadorFormado)
-#filho
 
+#filho
+def filho(Nomejogador,filhosJogador):
+    roll=random.randint(1,6)
+    if roll==5:
+        filhosJogador=filhosJogador+2
+        print('Parabéns,',Nomejogador,'você teve gêmeos!')
+    else:
+        print('Parabéns,',Nomejogador,'você teve um filho!')
+    return filhosJogador
 
 #casamento
-
-
+def casamento(Nomejogador):
+    print('parabéns,',Nomejogador,'você acaba de se casar!')
+    jogadorCasado=True
+    return jogadorCasado
 
 #famoso
-
-
+def famoso(Nomejogador):
+    print(Nomejogador,'agora é famoso')
+    jogadorFamoso=True
+    return jogadorFamoso
 
 #divórcio
 
@@ -242,12 +262,12 @@ while lobby !=1 and lobby !=2:
 
 while fim!=True: #or (jogador1Vivo!=True and jogador2Vivo!=True):
     #movimento dos jogares e simulação do tabuleiro(contém validação de vida e paralisado)
-
+    #observação 02 a linha contendo a funçao tabuleiro abaixo é extremamente longa pois nela são inseridas e retiradas todas as variaveis de cada player
     #jogador1
     if jogador1Vivo==True and paralizado1!=True:
         posJogador1=dado(posJogador1)
         print(nomeJ1,'caiu na casa',posJogador1)
-        posJogador1,jogador1Vivo,nomeJ1,paralizado1=tabuleiro(posJogador1,jogador1Vivo,nomeJ1,paralizado1)
+        posJogador1,jogador1Vivo,nomeJ1,paralizado1,jogador1Formado,filhosJogador1,jogador1Casado,jogador1Famoso=tabuleiro(posJogador1,jogador1Vivo,nomeJ1,paralizado1,jogador1Formado,filhosJogador1,jogador1Casado,jogador1Famoso)
     elif jogador1Vivo==True and paralizado1==True:
         print(nomeJ1,'perdeu seu turno')     
     else:
@@ -258,7 +278,7 @@ while fim!=True: #or (jogador1Vivo!=True and jogador2Vivo!=True):
     if dupla==True and jogador2Vivo==True and paralizado2==False:
         posJogador2=dado(posJogador2)
         print(nomeJ2,'caiu na casa',posJogador2)
-        posJogador2,jogador2Vivo,nomeJ2,paralizado2 = tabuleiro(posJogador2,jogador2Vivo,nomeJ2,paralizado2)
+        posJogador2,jogador2Vivo,nomeJ2,paralizado2,jogador2Formado,filhosJogador2,jogador2Casado,jogador2Famoso=tabuleiro(posJogador2,jogador2Vivo,nomeJ2,paralizado2,jogador2Formado,filhosJogador2,jogador2Casado,jogador2Famoso)
     elif dupla==True and jogador2Vivo==True and paralizado2==True:
         print(nomeJ2,'perdeu seu turno')     
     elif dupla==True and jogador2Vivo==False:

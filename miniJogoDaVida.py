@@ -11,42 +11,53 @@ def dado(posJogador):
     return(posJogador)
 
 #uma grande função contendo todas as 'casas' do tabuleiro,verifica a posição e status do jogador para executar as outras funções
-def tabuleiro(posJogador,jogadorVivo,Nomejogador,paralizado,jogadorFormado,filhosJogador,jogadorCasado,jogadorFamoso):
+def tabuleiro(posJogador,jogadorVivo,Nomejogador,paralizado,jogadorFormado,filhosJogador,jogadorCasado,jogadorFamoso,jogadorDivorciado,dinheiro):
     #casas com roleta
     if posJogador==1 or posJogador==3 or posJogador==10 or posJogador==17:
         print('você caiu na roleta! gire para ver sua sorte!')
         (posJogador,paralizado)=roleta(posJogador,Nomejogador,paralizado)
-
     #casas com caveira
     if posJogador==2 or posJogador==8 or posJogador==18:
         jogadorVivo=morte(jogadorVivo,Nomejogador)
-
     #casas do desafio matemático
     if posJogador==4 or posJogador==11 or posJogador==19:
+        print('desafio matematico!!')
         desafioMatematico()
-
     #casa da faculdade
     if posJogador==5:
+        print(Nomejogador,'entrou na faculdade')
         jogadorFormado=formatura(Nomejogador,jogadorFormado)
-
     #casas de filho
     if posJogador==6 or posJogador==9 or posJogador==13:
         filhosJogador=filho(Nomejogador,filhosJogador)
-
     #casas do casamento
     if posJogador==7:
         jogadorCasado=casamento(Nomejogador)
-
     #casa da fama
     if posJogador==15:
         jogadorFamoso=famoso(Nomejogador)
+    #casa do divorcio
+    if posJogador==12:
+        jogadorDivorciado=divorcio(Nomejogador,jogadorCasado)
+    #casa da loteria
+    if posJogador==14:
+        dinheiro=loteria(Nomejogador)
+    #casa do novo amor
+    if posJogador==16:
+        if jogadorCasado==True:
+            print(Nomejogador,'já é casado')
+        else:
+            jogadorCasado=True
+            jogadorDivorciado=False
+            print(Nomejogador,'encontrou um novo amor na sua vida!')
+    #maquina do tempo
+    if posJogador==20:
+        reset(Nomejogador)
 
+    return (posJogador,jogadorVivo,Nomejogador,paralizado,jogadorFormado,filhosJogador,jogadorCasado,jogadorFamoso,jogadorDivorciado,dinheiro)
 
-
-    return (posJogador,jogadorVivo,Nomejogador,paralizado,jogadorFormado,filhosJogador,jogadorCasado,jogadorFamoso)
 
 #Regras das casas
-
 #roleta
 def roleta(posJogador,Nomejogador,paralizado):
     roll=random.randint(1,6)
@@ -106,7 +117,7 @@ def circulo(r):
 
 def factorial(n):
     if n == 0:
-        fact= 1
+        fact=1
     else:
         fact= n * factorial(n-1)
     print(fact)
@@ -188,20 +199,51 @@ def famoso(Nomejogador):
     return jogadorFamoso
 
 #divórcio
-
-
+def divorcio(Nomejogador,jogadorCasado):
+    if jogadorCasado==False:
+        print(Nomejogador,'não é casado, nada acontece')
+    else:
+        print(Nomejogador,'infelizmente se divorciou')
+        jogadorCasado=False
+        jogadorDivorciado=True
+    return jogadorCasado,jogadorDivorciado
 
 #loteria
-
-
-
-#novo amor(casar2 só que não pode ter divorciado nem casado )
-
-
+def loteria(NomeJogador):
+    roll=random.randint(1,6)
+    if roll==1:
+        print(NomeJogador,'ganhou 2,50 reais na loteria')
+        dinheiro='2,50'
+    if roll==2:
+        print(NomeJogador,'ganhou 5.000,00 reais na loteria')
+        dinheiro='5.000,00'
+    if roll==3:
+        print(NomeJogador,'ganhou 50.000,00 reais na loteria')
+        dinheiro='50.000,00'
+    if roll==4:
+        print(NomeJogador,'ganhou 500.000,00 reais na loteria')
+        dinheiro='500.000,00'
+    if roll==5:
+        print(NomeJogador,'ganhou 5.000.000,00 reais na loteria')
+        dinheiro='5.000.000,00'
+    if roll==6:
+        print(NomeJogador,'ganhou 100.000.000,00 na loteria')
+        dinheiro='100.000.000,00'
+    return dinheiro
 
 #maquina do tempo
-
-
+def reset(Nomejogador):
+    posJogador = 0
+    filhosJogador = 0
+    jogadorCasado = False
+    jogadorDivorciado = False
+    jogadorFormado = False
+    jogadorFamoso = False
+    jogadorVivo = True
+    paralizado=False
+    dinheiro=0
+    print(Nomejogador,'encontrou uma maquina do tempo!!!, agora ele voutou ao inicio sem NADA!')
+    return(posJogador,filhosJogador,jogadorCasado,jogadorDivorciado,jogadorFormado,jogadorFamoso,jogadorVivo,paralizado,dinheiro)
 
 #main
 #variaveis iniciais:
@@ -215,6 +257,7 @@ jogador1Formado = False
 jogador1Famoso = False
 jogador1Vivo = True
 paralizado1=False
+dinheiro1=0
 
 #jogador 2
 posJogador2 = 0
@@ -225,6 +268,7 @@ jogador2Formado = False
 jogador2Famoso = False
 jogador2Vivo = True
 paralizado2=False
+dinheiro2=0
 
 #observação 'paralizado' é uma variavel que verifica se o jogador perdeu seu turno(util na função roleta)
 
@@ -234,7 +278,7 @@ lobby=0
 nomeJ1=0
 nomeJ2=0
 fim=False
-
+cont=0
 #lobby determina se é 1 ou 2 jogadores, para então começar o jogo(contém validação de entrada) e nomes dos jogadores
 
 while lobby !=1 and lobby !=2:
@@ -260,14 +304,18 @@ while lobby !=1 and lobby !=2:
 #jogo principal
 #-o jogo só acaba quando um jogador alcançar a posição 21 ou todos estiverem mortos.
 
-while fim!=True: #or (jogador1Vivo!=True and jogador2Vivo!=True):
+while fim!=True or (jogador1Vivo!=True and jogador2Vivo!=True):
     #movimento dos jogares e simulação do tabuleiro(contém validação de vida e paralisado)
     #observação 02 a linha contendo a funçao tabuleiro abaixo é extremamente longa pois nela são inseridas e retiradas todas as variaveis de cada player
     #jogador1
+
+    cont=cont+1
+    print('#####   TURNO',cont,' #####')
+
     if jogador1Vivo==True and paralizado1!=True:
         posJogador1=dado(posJogador1)
         print(nomeJ1,'caiu na casa',posJogador1)
-        posJogador1,jogador1Vivo,nomeJ1,paralizado1,jogador1Formado,filhosJogador1,jogador1Casado,jogador1Famoso=tabuleiro(posJogador1,jogador1Vivo,nomeJ1,paralizado1,jogador1Formado,filhosJogador1,jogador1Casado,jogador1Famoso)
+        posJogador1,jogador1Vivo,nomeJ1,paralizado1,jogador1Formado,filhosJogador1,jogador1Casado,jogador1Famoso,jogador1Divorciado,dinheiro1=tabuleiro(posJogador1,jogador1Vivo,nomeJ1,paralizado1,jogador1Formado,filhosJogador1,jogador1Casado,jogador1Famoso,jogador1Divorciado,dinheiro1)
     elif jogador1Vivo==True and paralizado1==True:
         print(nomeJ1,'perdeu seu turno')     
     else:
@@ -278,7 +326,7 @@ while fim!=True: #or (jogador1Vivo!=True and jogador2Vivo!=True):
     if dupla==True and jogador2Vivo==True and paralizado2==False:
         posJogador2=dado(posJogador2)
         print(nomeJ2,'caiu na casa',posJogador2)
-        posJogador2,jogador2Vivo,nomeJ2,paralizado2,jogador2Formado,filhosJogador2,jogador2Casado,jogador2Famoso=tabuleiro(posJogador2,jogador2Vivo,nomeJ2,paralizado2,jogador2Formado,filhosJogador2,jogador2Casado,jogador2Famoso)
+        posJogador2,jogador2Vivo,nomeJ2,paralizado2,jogador2Formado,filhosJogador2,jogador2Casado,jogador2Famoso,jogador2Divorciado,dinheiro2=tabuleiro(posJogador2,jogador2Vivo,nomeJ2,paralizado2,jogador2Formado,filhosJogador2,jogador2Casado,jogador2Famoso,jogador2Divorciado,dinheiro2)
     elif dupla==True and jogador2Vivo==True and paralizado2==True:
         print(nomeJ2,'perdeu seu turno')     
     elif dupla==True and jogador2Vivo==False:
@@ -286,7 +334,7 @@ while fim!=True: #or (jogador1Vivo!=True and jogador2Vivo!=True):
     print('')
 
     input('aperte qualquer tecla para passar de turno')
-#para melhor visualização dos turnos setá sempre nescessario apertar qualquer tecla para continuar.
+#para melhor visualização dos turnos será sempre nescessario apertar qualquer tecla para continuar.
 
 
 

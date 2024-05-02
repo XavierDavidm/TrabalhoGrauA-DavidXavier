@@ -53,70 +53,60 @@ def tabuleiro(posJogador,jogadorVivo,Nomejogador,paralizado,jogadorFormado,filho
     #maquina do tempo
     elif posJogador==20:
         reset(Nomejogador)
+    return(posJogador,jogadorVivo,Nomejogador,paralizado,jogadorFormado,filhosJogador,jogadorCasado,jogadorFamoso,jogadorDivorciado,dinheiro)
 
-    if fim==True:
-        print('')
-        print('estaticas de fim de jogo:')
-        print('')
-        print('estatisicas',nomeJ1)
-        if jogador1Formado==False:
-            print(nomeJ1,'não é formado')
-        else:
-            print(nomeJ1,'é formado em',jogador1Formado)
-        print(nomeJ1,'teve',filhosJogador1,'filhos durante sua vida')
-        if jogador1Casado==False:
-            print(nomeJ1,'não se casou')
-        else:
-            print(nomeJ1,'é casado')
-        if jogador1Divorciado==True:
-            print(nomeJ1,'se divorciou')
-        else:
-            print(nomeJ1,'não se divorciou')
-        if jogador1Famoso==True:
-            print(nomeJ1,'é famoso')
-        else:
-            print(nomeJ1,'não foi famoso')
-        if dinheiro1 == 0:
-            print(nomeJ1,'nunca ganhou na loteria')
-        else:
-            print(nomeJ1,'ganhou',dinheiro1,'na loteria')
 
-        if dupla==True:
-            print('')
-            print('estatisicas',nomeJ2)
-            if jogador2Formado==False:
-                print(nomeJ2,'não é formado')
-            else:
-                print(nomeJ2,'é formado em',jogador2Formado)
-            print(nomeJ2,'deve',filhosJogador2,'durante sua vida')
-            if jogador2Casado==False:
-                print(nomeJ2,'não se casou')
-            else:
-                print(nomeJ2,'é casado')
-            if jogador2Divorciado==True:
-                print(nomeJ2,'se divorciou')
-            else:
-                print(nomeJ2,'não se divorciou')
-            if jogador2Famoso==True:
-                print(nomeJ2,'é famoso')
-            else:
-                print(nomeJ2,'não foi famoso')
-            if dinheiro2 == 0:
-                print(nomeJ2,'nunca ganhou na loteria')
-            else:
-                print(nomeJ2,'ganhou',dinheiro2,'na loteria')
-###observaçâo: para não ficar poluida a tela decidi que aparecerá uma lista com todas as conquistas dos jogadores apenas no fim
-#mas a cada ação é mostrado o que aconteceu no turno, ex Você é famoso agora.
-
-    input('aperte qualquer tecla para passar de turno')
+def estatisticas(dupla,posJogador2,jogador2Vivo,nomeJ2,paralizado2,jogador2Formado,filhosJogador2,jogador2Casado,jogador2Famoso,jogador2Divorciado,dinheiro2,posJogador1,jogador1Vivo,nomeJ1,paralizado1,jogador1Formado,filhosJogador1,jogador1Casado,jogador1Famoso,jogador1Divorciado,dinheiro1):
     print('')
-#para melhor visualização dos turnos será sempre nescessario apertar qualquer tecla para continuar.
+    print('estaticas de fim de jogo:')
+    print('')
+    print('estatisicas',nomeJ1)
+    if jogador1Formado==False:
+        print(nomeJ1,'não é formado')
+    else:
+        print(nomeJ1,'é formado em',jogador1Formado)
+    print(nomeJ1,'teve',filhosJogador1,'filhos durante sua vida')
+    if jogador1Casado==False:
+        print(nomeJ1,'não se casou')
+    else:
+        print(nomeJ1,'é casado')
+    if jogador1Divorciado==True:
+        print(nomeJ1,'se divorciou')
+    else:
+        print(nomeJ1,'não se divorciou')
+    if jogador1Famoso==True:
+        print(nomeJ1,'é famoso')
+    else:
+        print(nomeJ1,'não foi famoso')
+    if dinheiro1 == 0:
+        print(nomeJ1,'nunca ganhou na loteria')
+    else:
+        print(nomeJ1,'ganhou',dinheiro1,'na loteria')
 
-
-
-
-    return (posJogador,jogadorVivo,Nomejogador,paralizado,jogadorFormado,filhosJogador,jogadorCasado,jogadorFamoso,jogadorDivorciado,dinheiro)
-
+    if dupla==True:
+        print('')
+        print('estatisicas',nomeJ2)
+        if jogador2Formado==False:
+            print(nomeJ2,'não é formado')
+        else:
+            print(nomeJ2,'é formado em',jogador2Formado)
+        print(nomeJ2,'deve',filhosJogador2,'durante sua vida')
+        if jogador2Casado==False:
+            print(nomeJ2,'não se casou')
+        else:
+            print(nomeJ2,'é casado')
+        if jogador2Divorciado==True:
+            print(nomeJ2,'se divorciou')
+        else:
+            print(nomeJ2,'não se divorciou')
+        if jogador2Famoso==True:
+            print(nomeJ2,'é famoso')
+        else:
+            print(nomeJ2,'não foi famoso')
+        if dinheiro2 == 0:
+            print(nomeJ2,'nunca ganhou na loteria')
+        else:
+            print(nomeJ2,'ganhou',dinheiro2,'na loteria')
 
 #Regras das casas
 #roleta
@@ -244,6 +234,7 @@ def filho(Nomejogador,filhosJogador):
         filhosJogador=filhosJogador+2
         print('Parabéns,',Nomejogador,'você teve gêmeos!')
     else:
+        filhosJogador=filhosJogador+1
         print('Parabéns,',Nomejogador,'você teve um filho!')
     return filhosJogador
 
@@ -378,7 +369,8 @@ while fim!=True:
         print(nomeJ1,'caiu na casa',posJogador1)
         posJogador1,jogador1Vivo,nomeJ1,paralizado1,jogador1Formado,filhosJogador1,jogador1Casado,jogador1Famoso,jogador1Divorciado,dinheiro1=tabuleiro(posJogador1,jogador1Vivo,nomeJ1,paralizado1,jogador1Formado,filhosJogador1,jogador1Casado,jogador1Famoso,jogador1Divorciado,dinheiro1)
     elif jogador1Vivo==True and paralizado1==True:
-        print(nomeJ1,'perdeu seu turno')     
+        print(nomeJ1,'perdeu seu turno')  
+        paralizado1=False    
     else:
         print(nomeJ1,'está morto')
     print('')
@@ -389,7 +381,8 @@ while fim!=True:
         print(nomeJ2,'caiu na casa',posJogador2)
         posJogador2,jogador2Vivo,nomeJ2,paralizado2,jogador2Formado,filhosJogador2,jogador2Casado,jogador2Famoso,jogador2Divorciado,dinheiro2=tabuleiro(posJogador2,jogador2Vivo,nomeJ2,paralizado2,jogador2Formado,filhosJogador2,jogador2Casado,jogador2Famoso,jogador2Divorciado,dinheiro2)
     elif dupla==True and jogador2Vivo==True and paralizado2==True:
-        print(nomeJ2,'perdeu seu turno')     
+        print(nomeJ2,'perdeu seu turno')  
+        paralizado2=False   
     elif dupla==True and jogador2Vivo==False:
         print(nomeJ2,'está morto')
     print('')
@@ -403,6 +396,7 @@ while fim!=True:
     #validação de fim de jogo(condições: se um chegar primeiro,todos estiverem mortos(dupla))
     if posJogador1==21 and posJogador2==21:
         print('ambos os jogadores chegaram vivos juntos ao final do tabuleiro') #fiz essa pra caso venha aquele 00001% de chance
+        fim=True
     elif posJogador1==21:
         print(nomeJ1,'chegou ao fim do tabuleiro!')
         fim=True
@@ -417,10 +411,13 @@ while fim!=True:
         fim=True
     else:
         fim=False
-
+    if fim==True:
+        estatisticas(dupla,posJogador2,jogador2Vivo,nomeJ2,paralizado2,jogador2Formado,filhosJogador2,jogador2Casado,jogador2Famoso,jogador2Divorciado,dinheiro2,posJogador1,jogador1Vivo,nomeJ1,paralizado1,jogador1Formado,filhosJogador1,jogador1Casado,jogador1Famoso,jogador1Divorciado,dinheiro1)
 ###observaçâo: para não ficar poluida a tela decidi que aparecerá uma lista com todas as conquistas dos jogadores apenas no fim
 #mas a cada ação é mostrado o que aconteceu no turno, ex Você é famoso agora.
 
-    input('aperte qualquer tecla para passar de turno')
-    print('')
+    if fim==False:
+        input('aperte qualquer tecla para passar de turno')
+        print('')
 #para melhor visualização dos turnos será sempre nescessario apertar qualquer tecla para continuar.
+
